@@ -1,84 +1,131 @@
 #include <stdio.h>
-#include <conio.h>
 #include <math.h>
-int c = 0,numa[8]={0},numb[8]={0},diff[8]={0},sum[8]={0};
+
+int c = 0, numa[8] = {0}, numb[8] = {0}, diff[8] = {0}, sum[8] = {0};
+
 void add();
 void sub();
-void main()
-{
- int ch,i;
- do
-{
 
- for(i=0; i<8; i++)
-{
- numa[i] = 0;
- numb[i] = 0;
- diff[i] = 0;
- sum[i] = 0;
- }
- c = 0;
- printf("\tADDITION-SUBTRACTION USING TWO'S COMPLEMENT");
- printf("\n1.ADD\n2.SUBTRACT\nEnter your choice: ");
- scanf("%d",&ch);
- switch(ch){
- case 1: add();
- break;
- case 2: sub();
- break;
- default: printf("\nInvalid Choice: ");
- }
-printf("\nPress 1 to Continue...");
- scanf("%d",&ch);
- }while(ch == 1);
+int main() {
+    int ch;
+    do {
+        printf("\tADDITION-SUBTRACTION USING TWO'S COMPLEMENT\n");
+        printf("1. ADD\n2. SUBTRACT\nEnter your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch) {
+            case 1:
+                add();
+                break;
+            case 2:
+                sub();
+                break;
+            default:
+                printf("Invalid Choice\n");
+        }
+
+        printf("\nPress 1 to Continue, 0 to Exit: ");
+        scanf("%d", &ch);
+    } while (ch == 1);
+
+    return 0;
 }
-void add(){
- int i;
- printf("\nEnter two 8-bit binary numbers\n");
- printf("\nEnter first number: ");
- for(i = 0; i<8; i++)
-{
- scanf("%d",&numa[i]);
- }
- printf("\nEnter second number: ");
- for(i = 0; i<8; i++){
- scanf("%d",&numb[i]);
- }
- for(i = 7; i >= 0; i--){
- sum[i] = numa[i]+ numb[i] + c;
- if(sum[i]>=2){
- c = 1;
- }
- else
- c = 0;
- sum[i] = sum[i]%2;
- }
- printf("\nSum is: ");
- for(i = 0; i<8; i++){
- printf("%d",sum[i]);
- }
+
+void add() {
+    int i;
+    c = 0;
+
+    printf("Enter two 8-bit binary numbers\n");
+
+    printf("Enter first number: ");
+    for (i = 0; i < 8; i++) {
+        scanf("%d", &numa[i]);
+        if (numa[i] != 0 && numa[i] != 1) {
+            printf("Invalid binary input.\n");
+            return;
+        }
+    }
+
+    printf("Enter second number: ");
+    for (i = 0; i < 8; i++) {
+        scanf("%d", &numb[i]);
+        if (numb[i] != 0 && numb[i] != 1) {
+            printf("Invalid binary input.\n");
+            return;
+        }
+    }
+
+    for (i = 7; i >= 0; i--) {
+        sum[i] = numa[i] + numb[i] + c;
+        if (sum[i] >= 2) {
+            sum[i] %= 2;
+            c = 1;
+        } else {
+            c = 0;
+        }
+    }
+
+    printf("Sum is: ");
+    for (i = 0; i < 8; i++) {
+        printf("%d", sum[i]);
+    }
+    printf("\n");
 }
-void sub()
-{
- int i;
-printf("\nEnter two 8-bit binary numbers\n");
- printf("\nEnter first number: ");
- for(i = 0; i<8; i++){
- scanf("%d",&numa[i]);
- }
- printf("\nEnter second number: ");
- for(i = 0; i<8; i++){
- scanf("%d",&numb[i]);
- }
- for(i = 7; i >= 0; i--){
- diff[i] = numa[i] - numb[i];
- if(diff[i] < 0){
- numa[i-1] = numa[i-1] - 1;
- }
- diff[i] = fabs(diff[i]%2);
- }
- printf("\nDifference is: ");
- for(i = 0; i<8; i++){
- printf("%d",diff[i]);
- }
+
+void sub() {
+    int i, borrow = 0;
+
+    printf("Enter two 8-bit binary numbers\n");
+
+    printf("Enter first number: ");
+    for (i = 0; i < 8; i++) {
+        scanf("%d", &numa[i]);
+        if (numa[i] != 0 && numa[i] != 1) {
+            printf("Invalid binary input.\n");
+            return;
+        }
+    }
+
+    printf("Enter second number: ");
+    for (i = 0; i < 8; i++) {
+        scanf("%d", &numb[i]);
+        if (numb[i] != 0 && numb[i] != 1) {
+            printf("Invalid binary input.\n");
+            return;
+        }
+    }
+
+    // Perform subtraction using two's complement method
+    for (i = 7; i >= 0; i--) {
+        numb[i] = 1 - numb[i];  // One's complement of second number
+    }
+
+    // Add 1 for two's complement
+    for (i = 7; i >= 0; i--) {
+        numb[i] += borrow;
+        if (i == 7) numb[i] += 1;
+        if (numb[i] == 2) {
+            numb[i] = 0;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+    }
+
+    // Add first number and two's complement of second number
+    for (i = 7; i >= 0; i--) {
+        diff[i] = numa[i] + numb[i] + c;
+        if (diff[i] >= 2) {
+            diff[i] %= 2;
+            c = 1;
+        } else {
+            c = 0;
+        }
+    }
+
+    printf("Difference is: ");
+    for (i = 0; i < 8; i++) {
+        printf("%d", diff[i]);
+    }
+    printf("\n");
 }
