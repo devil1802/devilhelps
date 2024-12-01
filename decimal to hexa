@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<conio.h>
+void main()
+{
+long int dnum,rem,q,dn=0,i,j,temp;
+char ch;
+clrscr();
+printf("\nEnter a decimal number : ");
+scanf("%ld",&dnum);
+q=dnum;
+for(i=q;i>0;i=i/16)
+{
+temp=i%16;
+if(temp<10)
+temp=temp+48;
+else
+temp=temp+55;
+dn=dn*100+temp;
+}
+printf("\nThe equivalent hexadecimal number is : ");
+for(j=dn;j>0;j=j/100)
+{
+ch=j%100;
+printf("%c",ch);
+}
+printf("\n");
+getch();
+}
