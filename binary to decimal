@@ -1,20 +1,25 @@
-#include<stdio.h>
-#include<conio.h>
-#include<math.h>
-void main()
-{
-long int bnum;
-long int decnum=0,i=0,d;
-clrscr();
-printf("\nEnter the binary number : ");
-scanf("%ld",&bnum);
-while(bnum!=0)
-{
-d=bnum%10;
-decnum=decnum+d*pow(2,i);
-bnum=bnum/10;
-i++;
-}
-printf("\nThe equivalent decimal number is : %ld",decnum);
-getch();
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    long int bnum;
+    long int decnum = 0, i = 0, d;
+
+    printf("Enter the binary number: ");
+    scanf("%ld", &bnum);
+
+    while (bnum != 0) {
+        d = bnum % 10;
+        if (d != 0 && d != 1) {
+            printf("Invalid binary number.\n");
+            return 1;
+        }
+        decnum += d * pow(2, i);
+        bnum /= 10;
+        i++;
+    }
+
+    printf("The equivalent decimal number is: %ld\n", decnum);
+
+    return 0;
 }
