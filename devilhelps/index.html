@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpline Buddy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #0078D7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            margin: 20px;
+            text-align: center;
+        }
+        nav a {
+            margin: 10px;
+            text-decoration: none;
+            color: #0078D7;
+            font-size: 18px;
+            display: inline-block;
+            padding: 10px 15px;
+            border: 1px solid #0078D7;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #0078D7;
+            color: white;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Helpline Buddy</h1>
+</header>
+
+<nav>
+    <a href="#" id="exp1">decimal to binary</a>
+    <a href="#" id="exp2">decimal to octal</a>
+    <a href="#" id="exp3">decimal to hexa</a>
+    <a href="#" id="exp4">binary to decimal</a>
+    <a href="#" id="exp5">octal to decimal</a>
+    <a href="#" id="exp6">binary add and sub</a>
+    <a href="#" id="exp7">binary multiplication</a>
+    <a href="#" id="exp8">multi via booth's algorithm</a>
+
+</nav>
+
+<main id="content-area">
+    <p>Click on any heading to view its content.</p>
+</main>
+
+<footer>
+    <p>&copy; 2024 Helpline Buddy. All rights reserved.</p>
+</footer>
+
+<script>
+    // Get reference to the content area
+    const contentArea = document.getElementById('content-area');
+
+    // Define content for each heading
+    const content = {
+        exp1: `<h2>decimal to binary</h2><p>#include<stdio.h><br>
+#include<conio.h><br>
+void main()<br>
+{<br>
+long int num,i,j,bnum=0,dnum;<br>
+clrscr();<br>
+printf("\nEnter a decimal number : ");<br>
+scanf("%ld",&num);<br>
+dnum=num;<br>
+i=1;<br>
+for(j=num;j>0;j=j/2)<br>
+{<br>
+bnum=bnum+(num%2)*i;<br>
+i=i*10;<br>
+num=num/2;<br>
+}<br>
+printf("\n The binary of %ld is %ld",dnum,bnum);<br>
+getch();<br>
+}</p>`,
+
+        exp2: `<h2>decimal to octal</h2><p>#include<stdio.h><br>
+#include<conio.h><br>
+void main()<br>
+{<br>
+long int num,i,j,octnum=0,dnum;<br>
+clrscr();<br>
+printf("\nEnter a number : ");<br>
+scanf("%ld",&num);<br>
+dnum=num;<br>
+i=1;<br>
+for(j=num;j>0;j=j/8).<br>
+{<br>
+octnum=octnum+(num%8)*i;<br>
+i=i*10;<br>
+num=num/8;<br>
+}<br>
+printf("\n The Octal of %ld is %ld",dnum,octnum);<br>
+getch();<br>
+}<br>
+</p>`,
+
+        exp3: `<h2>decimal to hexa</h2><p>#include<stdio.h><br>
+#include<conio.h><br>
+void main()<br>
+{<br>
+long int dnum,rem,q,dn=0,i,j,temp;<br>
+char ch;<br>
+clrscr();<br>
+printf("\nEnter a decimal number : ");<br>
+scanf("%ld",&dnum);<br>
+q=dnum;<br>
+for(i=q;i>0;i=i/16)<br>
+{<br>
+temp=i%16;<br>
+if(temp<10)<br>
+temp=temp+48;<br>
+else<br>
+temp=temp+55;<br>
+dn=dn*100+temp;<br>
+}<br>
+printf("\nThe equivalent hexadecimal number is : ");<br>
+for(j=dn;j>0;j=j/100)<br>
+{<br>
+ch=j%100;<br>
+printf("%c",ch);<br>
+}<br>
+printf("\n");<br>
+getch();<br>
+}<br>
+.</p>`,
+        exp4: `<h2>binary to decimal</h2><p>#include<stdio.h><br>
+#include<conio.h><br>
+#include<math.h><br>
+void main()<br>
+{<br>
+long int bnum;<br>
+long int decnum=0,i=0,d;<br>
+clrscr();<br>
+printf("\nEnter the binary number : ");<br>
+scanf("%ld",&bnum);<br>
+while(bnum!=0)<br>
+{<br>
+d=bnum%10;<br>
+decnum=decnum+d*pow(2,i);<br>
+bnum=bnum/10;<br>
+i++;<br>
+}<br>
+printf("\nThe equivalent decimal number is : %ld",decnum);<br>
+getch();<br>
+}</p>`,
+
+        exp5: `<h2>#include<stdio.h><br>
+#include<conio.h><br>
+    #include<math.h><br>
+void main()<br>
+{<br>
+int num,decnum=0,i=0,rem;<br>
+clrscr();<br>
+printf("\nEnter an octal number(using the digits 0---7) : ");<br>
+scanf("%d",&num);<br>
+while(num!=0)<br>
+{<br>
+rem=num%10;<br>
+decnum=decnum+rem*pow(8,i);<br>
+num=num/10;<br>
+i++;<br>
+}<br>
+printf("\nThe equivalent decimal number is : %d",decnum);<br>
+getch();<br>
+}<br>
+.</p>`,
+
+         exp6: `<h2>binary add and sub</h2><p>#include <stdio.h><br>
+#include <conio.h><br>
+#include <math.h><br>
+int c = 0,numa[8]={0},numb[8]={0},diff[8]={0},sum[8]={0};<br>
+void add();<br>
+void sub();<br>
+void main()<br>
+{<br>
+ int ch,i;<br>
+ do<br>
+{<br>
+
+ for(i=0; i<8; i++)<br>
+{<br>
+ numa[i] = 0;<br>
+ numb[i] = 0;<br>
+ diff[i] = 0;<br>
+ sum[i] = 0;<br>
+ }<br>
+ c = 0;<br>
+ printf("\tADDITION-SUBTRACTION USING TWO'S COMPLEMENT");<br>
+ printf("\n1.ADD\n2.SUBTRACT\nEnter your choice: ");<br>
+ scanf("%d",&ch);<br>
+ switch(ch){<br>
+ case 1: add();<br>
+ break;<br>
+ case 2: sub();<br>
+ break;<br>
+ default: printf("\nInvalid Choice: ");<br>
+ }<br>
+ printf("\nPress 1 to Continue...");<br>
+ scanf("%d",&ch);<br>
+ }while(ch == 1);<br>
+}<br>
+void add(){<br>
+ int i;<br>
+ printf("\nEnter two 8-bit binary numbers\n");<br>
+ printf("\nEnter first number: ");<br>
+ for(i = 0; i<8; i++)<br>
+{<br>
+ scanf("%d",&numa[i]);<br>
+ }<br>
+ printf("\nEnter second number: ");<br>
+ for(i = 0; i<8; i++)<br>
+ {<br>
+ scanf("%d",&numb[i]);<br>
+ }<br>
+ for(i = 7; i >= 0; i--){<br>
+ sum[i] = numa[i]+ numb[i] + c;<br>
+ if(sum[i]>=2){<br>
+ c = 1;<br>
+ }<br>
+ else<br>
+ c = 0;<br>
+ sum[i] = sum[i]%2;<br>
+ }<br>
+ printf("\nSum is: ");<br>
+ for(i = 0; i<8; i++){<br>
+ printf("%d",sum[i]);<br>
+ }<br>
+}<br>
+void sub()<br>
+{<br>
+ int i;<br>
+printf("\nEnter two 8-bit binary numbers\n");<br>
+printf("\nEnter first number: ");<br>
+ for(i = 0; i<8; i++){<br>
+ scanf("%d",&numa[i]);<br>
+ }<br>
+ printf("\nEnter second number: ");<br>
+ for(i = 0; i<8; i++){<br>
+ scanf("%d",&numb[i]);<br>
+ }<br>
+ for(i = 7; i >= 0; i--){<br>
+ diff[i] = numa[i] - numb[i];<br>
+ if(diff[i] < 0){
+ numa[i-1] = numa[i-1] - 1;<br>
+ }<br>
+ diff[i] = fabs(diff[i]%2);<br>
+ }<br>
+ printf("\nDifference is: ");<br>
+ for(i = 0; i<8; i++){<br>
+ printf("%d",diff[i]);<br>
+ }<br>
+}<br>
+
+ </p>`,
+
+          exp7: `<h2>binary multiplication</h2><p>#include <stdio.h><br>
+int binaryproduct(int, int);<br>
+int main()<br>
+{<br>
+ long binary1, binary2, multiply = 0;<br>
+ int digit, factor = 1;<br>
+ printf("Enter the first binary number: ");<br>
+ scanf("%ld", &binary1);<br>
+ printf("Enter the second binary number: ");<br>
+ scanf("%ld", &binary2);<br>
+ while (binary2 != 0)<br>
+ {<br>
+ digit = binary2 % 10;<br>
+ if (digit == 1)<br>
+ {<br>
+ binary1 = binary1 * factor;<br>
+ multiply = binaryproduct(binary1, multiply);<br>
+ }<br>
+ else<br>
+ binary1 = binary1 * factor;<br>
+ binary2 = binary2 / 10;<br>
+ factor = 10;<br>
+ }<br>
+ printf("Product of two binary numbers: %ld", multiply);<br>
+ return 0;<br>
+}<br>
+ int binaryproduct(int binary1, int binary2)<br>
+{<br>
+ int i = 0, remainder = 0, sum[20];<br>
+ int binaryprod = 0;<br>
+ while (binary1 != 0 || binary2 != 0)<br>
+ {<br>
+ sum[i++] =(binary1 % 10 + binary2 % 10 + remainder) % 2;<br>
+ remainder =(binary1 % 10 + binary2 % 10 + remainder) / 2;<br>
+ binary1 = binary1 / 10;<br>
+ binary2 = binary2 / 10;<br>
+ }<br>
+ if (remainder != 0)<br>
+ sum[i++] = remainder;<br>
+ --i;<br>
+ while (i >= 0)<br>
+ binaryprod = binaryprod * 10 + sum[i--];<br>
+ return binaryprod;<br>
+}</p>`,
+
+          exp8: `<h2> multi via booth algorithm</h2><p>#include <stdio.h><br>
+#include <math.h><br>
+int a = 0,b = 0, c = 0, a1 = 0, b1 = 0, com[5] = { 1, 0, 0, 0, 0};<br>
+int anum[5] = {0}, anumcp[5] = {0}, bnum[5] = {0};<br>
+int acomp[5] = {0}, bcomp[5] = {0}, pro[5] = {0}, res[5] = {0};<br>
+void binary(){<br>
+ a1 = fabs(a);<br>
+ b1 = fabs(b);<br>
+ int r, r2, i, temp;<br>
+ for (i = 0; i < 5; i++){<br>
+ r = a1 % 2;<br>
+ a1 = a1 / 2;<br>
+ r2 = b1 % 2;<br>
+  b1 = b1 / 2;<br>
+ anum[i] = r;<br>
+ anumcp[i] = r;<br>
+ bnum[i] = r2;<br>
+ if(r2 == 0){<br>
+bcomp[i] = 1;<br>
+ }<br>
+ if(r == 0){<br>
+acomp[i] =1;<br>
+ }<br>
+ }<br>
+//part for two's complementing<br>
+c = 0;<br>
+for ( i = 0; i < 5; i++){<br>
+ res[i] = com[i]+ bcomp[i] + c;<br>
+ if(res[i] >= 2){<br>
+c = 1;<br>
+ }<br><br>
+ else<br>
+c = 0;<br>
+ res[i] = res[i] % 2;<br>
+ }<br>
+for (i = 4; i >= 0; i--){<br>
+ bcomp[i] = res[i];<br>
+}<br>
+//in case of negative inputs<br>
+if (a < 0){<br>
+c = 0;<br>
+ for (i = 4; i >= 0; i--){<br>
+ res[i] = 0;<br>
+ }<br>
+ for ( i = 0; i < 5 ;i++){<br>
+  res[i] = com[i] + acomp[i] + c;<br>
+ if (res[i] >= 2){<br>
+c = 1;<br>
+ }<br>
+ else<br>
+c = 0;<br>
+ res[i] = res[i]%2;<br>
+ }<br>
+ for (i = 4; i >= 0; i--){<br>
+  anum[i] = res[i];<br>
+ anumcp[i] = res[i];<br>
+ }<br>
+}<br>
+if(b < 0){<br>
+ for (i = 0; i < 5; i++){<br>
+ temp = bnum[i];<br>
+ bnum[i] = bcomp[i];<br>
+ bcomp[i] = temp;<br>
+ }<br>
+}<br>
+}<br>
+void add(int num[]){<br>
+int i;<br>
+c = 0;<br>
+for ( i = 0; i < 5; i++){<br>
+ res[i] = pro[i] + num[i] + c;<br>
+ if (res[i] >= 2){<br>
+c = 1;<br>
+ }<br>
+ else{<br>
+c = 0;<br>
+ }<br>
+ res[i] = res[i]%2;<br>
+  }<br>
+ for (i = 4; i >= 0; i--){<br>
+pro[i] = res[i];<br>
+printf("%d",pro[i]);<br>
+ }<br>
+printf(":");<br>
+for (i = 4; i >= 0; i--){<br>
+ printf("%d", anumcp[i]);<br>
+ }<br>
+}<br>
+void arshift(){//for arithmetic shift right<br>
+int temp = pro[4], temp2 = pro[0], i;<br>
+for (i = 1; i < 5 ; i++){//shift the MSB of product<br>
+pro[i-1] = pro[i];<br>
+}<br>
+pro[4] = temp;<br>
+for (i = 1; i < 5 ; i++){//shift the LSB of product<br>
+ anumcp[i-1] = anumcp[i];<br>
+}<br>
+anumcp[4] = temp2;<br>
+printf("\nAR-SHIFT: ");//display together<br>
+for (i = 4; i >= 0; i--){<br>
+ printf("%d",pro[i]);<br>
+}<br>
+printf(":");<br>
+for(i = 4; i >= 0; i--){<br>
+ printf("%d", anumcp[i]);<br>
+}<br>
+}<br>
+void main(){<br>
+int i, q = 0;<br>
+printf("\t\tBOOTH'S MULTIPLICATION ALGORITHM");<br>
+printf("\nEnter two numbers to multiply: ");<br>
+printf("\nBoth must be less than 16");<br>
+//simulating for two numbers each below 16<br>
+do{<br>
+ printf("\nEnter A: ");<br>
+ scanf("%d",&a);<br>
+ printf("Enter B: ");<br>
+  scanf("%d", &b);<br>
+ }while(a >=16 || b >=16);<br>
+printf("\nExpected product = %d", a * b);<br>
+binary();<br>
+printf("\n\nBinary Equivalents are: ");<br>
+printf("\nA = ");<br>
+for (i = 4; i >= 0; i--){<br>
+ printf("%d", anum[i]);<br>
+}<br>
+printf("\nB = ");<br>
+for (i = 4; i >= 0; i--){<br>
+ printf("%d", bnum[i]);<br>
+}<br>
+printf("\nB'+ 1 = ");<br>
+for (i = 4; i >= 0; i--){<br>
+ printf("%d", bcomp[i]);<br>
+ }<br>
+printf("\n\n");<br>
+for (i = 0;i < 5; i++){<br>
+ if (anum[i] == q){//just shift for 00 or 11<br>
+printf("\n-->");<br>
+arshift();<br>
+q = anum[i];<br>
+ }<br>
+ else if(anum[i] == 1 && q == 0){//subtract and shift for 10<br>
+ printf("\n-->");<br>
+ printf("\nSUB B: ");<br>
+ add(bcomp);//add two's complement to implement subtraction<br>
+ arshift();<br>
+ q = anum[i];<br>
+ }<br>
+ else{//add ans shift for 01<br>
+ printf("\n-->");<br>
+ printf("\nADD B: ");<br>
+ add(bnum);<br>
+ arshift();<br>
+ q = anum[i];<br>
+ }<br>
+ }<br>
+ printf("\nProduct is = ");<br>
+ for (i = 4; i >= 0; i--){<br>
+ printf("%d", pro[i]);<br>
+ }<br>
+ for (i = 4; i >= 0; i--){<br>
+ printf("%d", anumcp[i]);<br>
+ }<br>
+}<br>
+
+
+ .</p>`
+    };
+
+    // Add event listeners to load content dynamically
+    document.getElementById('exp1').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp1;
+    });
+
+    document.getElementById('exp2').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp2;
+    });
+
+    document.getElementById('exp3').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp3;
+    });
+
+    document.getElementById('exp4').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp4;
+    });
+
+    document.getElementById('exp5').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp5;
+    });
+    document.getElementById('exp6').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp6;
+    });
+    document.getElementById('exp7').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp7;
+    });
+    document.getElementById('exp8').addEventListener('click', () => {
+        contentArea.innerHTML = content.exp8;
+    });
+</script>
+
+</body>
+</html>
