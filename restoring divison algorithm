@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+
+int a = 0, b = 0, c = 0, com[5] = {1, 0, 0, 0, 0}, s = 0;
+int anum[5] = {0}, anumcp[5] = {0}, bnum[5] = {0};
+int acomp[5] = {0}, bcomp[5] = {0}, rem[5] = {0}, quo[5] = {0}, res[5] = {0};
+
+void binary() {
+    int r, i;
+    for (i = 0; i < 5; i++) {
+        r = a % 2;
+        a = a / 2;
+        anum[i] = r;
+        bcomp[i] = b % 2;  // for two's complement of B
+        b = b / 2;
+    }
+}
+
+void add(int num[]) {
+    int i;
+    c = 0;
+    for (i = 0; i < 5; i++) {
+        res[i] = rem[i] + num[i] + c;
+        if (res[i] >= 2) {
+            c = 1;
+        } else {
+            c = 0;
+        }
+        res[i] = res[i] % 2;
+    }
+    for (i = 4; i >= 0; i--) {
+        rem[i] = res[i];
+        printf("%d", rem[i]);
+    }
+    printf(": ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", anumcp[i]);
+    }
+    printf("\n");
+}
+
+void shl() {
+    int i;
+    // Shift left remainder and quotient
+    for (i = 4; i > 0; i--) {
+        rem[i] = rem[i - 1];
+        anumcp[i] = anumcp[i - 1];
+    }
+    rem[0] = anumcp[4];
+    anumcp[0] = 0;
+
+    printf("SHIFT LEFT: ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", rem[i]);
+    }
+    printf(": ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", anumcp[i]);
+    }
+    printf("\n");
+}
+
+void main() {
+    clrscr();
+    int i;
+    printf("\t\tRESTORING DIVISION ALGORITHM");
+    printf("\nEnter two numbers to divide: ");
+    printf("\nBoth must be less than 16\n");
+
+    // Input validation for numbers less than 16
+    do {
+        printf("\nEnter A: ");
+        scanf("%d", &a);
+        printf("Enter B: ");
+        scanf("%d", &b);
+    } while (a >= 16 || b >= 16);
+
+    // Print expected quotient and remainder
+    printf("\nExpected Quotient = %d", a / b);
+    printf("\nExpected Remainder = %d", a % b);
+
+    if (a * b < 0) {
+        s = 1;
+    }
+
+    binary();  // Convert both numbers to binary
+
+    printf("\nUnsigned Binary Equivalents are: ");
+    printf("\nA = ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", anum[i]);
+    }
+    printf("\nB = ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", bnum[i]);
+    }
+    printf("\nB' + 1 = ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", bcomp[i]);
+    }
+
+    // Begin division loop
+    printf("\n\n-->");
+
+    // Start division process (shift left, subtract, restore)
+    shl();
+    for (i = 0; i < 5; i++) {
+        printf("\n-->"); // Start subtraction
+        printf("\nSUB B: ");
+        add(bcomp);
+
+        if (rem[4] == 1) {
+            printf("\n-->RESTORE");
+            printf("\nADD B: ");
+            anumcp[0] = 0;
+            add(bnum);
+        } else {
+            anumcp[0] = 1;
+        }
+        if (i < 4) {
+            shl();  // Shift left again
+        }
+    }
+
+    // Output result
+    printf("\n----------------------------");
+    printf("\nSign of the result = %d", s);
+    printf("\nRemainder is = ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", rem[i]);
+    }
+    printf("\nQuotient is = ");
+    for (i = 4; i >= 0; i--) {
+        printf("%d", anumcp[i]);
+    }
+    printf("\n");
+
+    getch();
+}
