@@ -1,19 +1,20 @@
-#include<stdio.h>
-#include<conio.h>
-void main()
-{
-long int num,i,j,octnum=0,dnum;
-clrscr();
-printf("\nEnter a number : ");
-scanf("%ld",&num);
-dnum=num;
-i=1;
-for(j=num;j>0;j=j/8)
-{
-octnum=octnum+(num%8)*i;
-i=i*10;
-num=num/8;
-}
-printf("\n The Octal of %ld is %ld",dnum,octnum);
-getch();
+#include <stdio.h>
+
+int main() { 
+    long int num, i = 1, octnum = 0, dnum; 
+
+    printf("Enter a number: "); 
+    scanf("%ld", &num); 
+
+    dnum = num; 
+
+    while (num > 0) { 
+        octnum += (num % 8) * i; 
+        i *= 10; 
+        num /= 8; 
+    } 
+
+    printf("The Octal of %ld is %ld\n", dnum, octnum); 
+
+    return 0; 
 }
