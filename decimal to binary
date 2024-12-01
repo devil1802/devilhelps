@@ -1,19 +1,20 @@
-#include<stdio.h>
-#include<conio.h>
-void main()
-{
-long int num,i,j,bnum=0,dnum;
-clrscr();
-printf("\nEnter a decimal number : ");
-scanf("%ld",&num);
-dnum=num;
-i=1;
-for(j=num;j>0;j=j/2)
-{
-bnum=bnum+(num%2)*i;
-i=i*10;
-num=num/2;
-}
-printf("\n The binary of %ld is %ld",dnum,bnum);
-getch();
+#include <stdio.h> 
+
+int main() { 
+    long int num, dnum, bnum = 0, i = 1; 
+
+    printf("Enter a decimal number: "); 
+    scanf("%ld", &num); 
+
+    dnum = num; 
+
+    while (num > 0) { 
+        bnum += (num % 2) * i; 
+        i *= 10; 
+        num /= 2; 
+    } 
+
+    printf("The binary of %ld is %ld\n", dnum, bnum); 
+
+    return 0; 
 }
