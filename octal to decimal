@@ -1,19 +1,24 @@
-#include<stdio.h>
-#include<conio.h>
-#include<math.h>
-void main()
-{
-int num,decnum=0,i=0,rem;
-clrscr();
-printf("\nEnter an octal number(using the digits 0---7) : ");
-scanf("%d",&num);
-while(num!=0)
-{
-rem=num%10;
-decnum=decnum+rem*pow(8,i);
-num=num/10;
-i++;
-}
-printf("\nThe equivalent decimal number is : %d",decnum);
-getch();
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int num, decnum = 0, i = 0, rem;
+
+    printf("Enter an octal number (using the digits 0 to 7): ");
+    scanf("%d", &num);
+
+    while (num != 0) {
+        rem = num % 10;
+        if (rem < 0 || rem > 7) {
+            printf("Invalid octal number.\n");
+            return 1;
+        }
+        decnum += rem * pow(8, i);
+        num /= 10;
+        i++;
+    }
+
+    printf("The equivalent decimal number is: %d\n", decnum);
+
+    return 0;
 }
